@@ -1,23 +1,23 @@
-import { DropdownButton } from '@/components/ui/Dropdown'
-import { Icon } from '@/components/ui/Icon'
-import { Surface } from '@/components/ui/Surface'
-import { Toolbar } from '@/components/ui/Toolbar'
-import { languages, tones } from '@/lib/constants'
-import * as Dropdown from '@radix-ui/react-dropdown-menu'
-import type { Language } from '@/extensions/Ai'
-import { useCallback } from 'react'
+import { DropdownButton } from '@/components/ui/Dropdown';
+import { Icon } from '@/components/ui/Icon';
+import { Surface } from '@/components/ui/Surface';
+import { Toolbar } from '@/components/ui/Toolbar';
+import { languages, tones } from '@/lib/constants';
+import * as Dropdown from '@radix-ui/react-dropdown-menu';
+import type { Language } from '@/extensions/Ai';
+import { useCallback } from 'react';
 
 export type AIDropdownProps = {
-  onSimplify: () => void
-  onFixSpelling: () => void
-  onMakeShorter: () => void
-  onMakeLonger: () => void
-  onEmojify: () => void
-  onTldr: () => void
-  onTranslate: (language: Language) => void
-  onTone: (tone: string) => void
-  onCompleteSentence: () => void
-}
+  onSimplify: () => void;
+  onFixSpelling: () => void;
+  onMakeShorter: () => void;
+  onMakeLonger: () => void;
+  onEmojify: () => void;
+  onTldr: () => void;
+  onTranslate: (language: Language) => void;
+  onTone: (tone: string) => void;
+  onCompleteSentence: () => void;
+};
 
 export const AIDropdown = ({
   onCompleteSentence,
@@ -30,8 +30,8 @@ export const AIDropdown = ({
   onTone,
   onTranslate,
 }: AIDropdownProps) => {
-  const handleTone = useCallback((tone: string) => () => onTone(tone), [onTone])
-  const handleTranslate = useCallback((language: Language) => () => onTranslate(language), [onTranslate])
+  const handleTone = useCallback((tone: string) => () => onTone(tone), [onTone]);
+  const handleTranslate = useCallback((language: Language) => () => onTranslate(language), [onTranslate]);
 
   return (
     <Dropdown.Root>
@@ -128,5 +128,5 @@ export const AIDropdown = ({
         </Surface>
       </Dropdown.Content>
     </Dropdown.Root>
-  )
-}
+  );
+};

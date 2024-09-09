@@ -1,29 +1,29 @@
-import { NodeViewProps, NodeViewWrapper, useEditorState } from '@tiptap/react'
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import toast from 'react-hot-toast'
-import { v4 as uuid } from 'uuid'
-import deepEql from 'fast-deep-equal'
+import { NodeViewProps, NodeViewWrapper, useEditorState } from '@tiptap/react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
+import { v4 as uuid } from 'uuid';
+import deepEql from 'fast-deep-equal';
 
-import { Button } from '@/components/ui/Button'
-import { Loader } from '@/components/ui/Loader'
-import { Panel, PanelHeadline } from '@/components/ui/Panel'
-import { Textarea } from '@/components/ui/Textarea'
-import { Icon } from '@/components/ui/Icon'
+import { Button } from '@/components/ui/Button';
+import { Loader } from '@/components/ui/Loader';
+import { Panel, PanelHeadline } from '@/components/ui/Panel';
+import { Textarea } from '@/components/ui/Textarea';
+import { Icon } from '@/components/ui/Icon';
 
-import { AiTone, AiToneOption } from '@/components/BlockEditor/types'
-import { tones } from '@/lib/constants'
+import { AiTone, AiToneOption } from '@/components/BlockEditor/types';
+import { tones } from '@/lib/constants';
 
-import * as Dropdown from '@radix-ui/react-dropdown-menu'
-import { Toolbar } from '@/components/ui/Toolbar'
-import { Surface } from '@/components/ui/Surface'
-import { DropdownButton } from '@/components/ui/Dropdown'
-import { AiStorage, tryParseToTiptapHTML } from '@/extensions/Ai/index'
+import * as Dropdown from '@radix-ui/react-dropdown-menu';
+import { Toolbar } from '@/components/ui/Toolbar';
+import { Surface } from '@/components/ui/Surface';
+import { DropdownButton } from '@/components/ui/Dropdown';
+import { AiStorage, tryParseToTiptapHTML } from '@/extensions/Ai/index';
 
 export interface DataProps {
-  text: string
-  tone?: AiTone
-  textUnit?: string
-  textLength?: string
+  text: string;
+  tone?: AiTone;
+  textUnit?: string;
+  textLength?: string;
 }
 
 // TODO rewrite this component to use the new Ai extension features
@@ -31,28 +31,28 @@ export const AiWriterView = ({ editor, node, getPos, deleteNode }: NodeViewProps
   const { isLoading, generatedText, error } = useEditorState({
     editor,
     selector: ctx => {
-      const aiStorage = ctx.editor.storage.ai as AiStorage
+      const aiStorage = ctx.editor.storage.ai as AiStorage;
       return {
         isLoading: aiStorage.state === 'loading',
         generatedText: aiStorage.response,
         error: aiStorage.error,
-      }
+      };
     },
     equalityFn: deepEql,
-  })
+  });
 
   const [data, setData] = useState<DataProps>({
     text: '',
     tone: undefined,
-  })
-  const currentTone = tones.find(t => t.value === data.tone)
-  const textareaId = useMemo(() => uuid(), [])
+  });
+  const currentTone = tones.find(t => t.value === data.tone);
+  const textareaId = useMemo(() => uuid(), []);
 
   const generateText = useCallback(() => {
     if (!data.text) {
-      toast.error('Please enter a description')
+      toast.error('Please enter a description');
 
-      return
+      return;
     }
 
     editor.commands.aiTextPrompt({
@@ -61,38 +61,38 @@ export const AiWriterView = ({ editor, node, getPos, deleteNode }: NodeViewProps
       tone: data.tone,
       stream: true,
       format: 'rich-text',
-    })
-  }, [data.text, data.tone, editor])
+    });
+  }, [data.text, data.tone, editor]);
 
   useEffect(() => {
     if (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
-  }, [error])
+  }, [error]);
 
   const insert = useCallback(() => {
-    const from = getPos()
-    const to = from + node.nodeSize
-    editor.chain().focus().aiAccept({ insertAt: { from, to }, append: false }).run()
-  }, [editor, getPos, node.nodeSize])
+    const from = getPos();
+    const to = from + node.nodeSize;
+    editor.chain().focus().aiAccept({ insertAt: { from, to }, append: false }).run();
+  }, [editor, getPos, node.nodeSize]);
 
   const discard = useCallback(() => {
-    deleteNode()
-  }, [deleteNode])
+    deleteNode();
+  }, [deleteNode]);
 
   const onTextAreaChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setData(prevData => ({ ...prevData, text: e.target.value }))
-  }, [])
+    setData(prevData => ({ ...prevData, text: e.target.value }));
+  }, []);
 
   const onUndoClick = useCallback(() => {
-    setData(prevData => ({ ...prevData, tone: undefined }))
-  }, [])
+    setData(prevData => ({ ...prevData, tone: undefined }));
+  }, []);
 
   const createItemClickHandler = useCallback((tone: AiToneOption) => {
     return () => {
-      setData(prevData => ({ ...prevData, tone: tone.value }))
-    }
-  }, [])
+      setData(prevData => ({ ...prevData, tone: tone.value }));
+    };
+  }, []);
 
   return (
     <NodeViewWrapper data-drag-handle>
@@ -182,5 +182,5 @@ export const AiWriterView = ({ editor, node, getPos, deleteNode }: NodeViewProps
         </div>
       </Panel>
     </NodeViewWrapper>
-  )
-}
+  );
+};

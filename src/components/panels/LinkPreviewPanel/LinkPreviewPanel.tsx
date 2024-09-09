@@ -1,13 +1,13 @@
-import { Icon } from '@/components/ui/Icon'
-import { Surface } from '@/components/ui/Surface'
-import { Toolbar } from '@/components/ui/Toolbar'
-import Tooltip from '@/components/ui/Tooltip'
+import { Icon } from '@/components/ui/Icon';
+import { Surface } from '@/components/ui/Surface';
+import { Toolbar } from '@/components/ui/Toolbar';
+import Tooltip from '@/components/ui/Tooltip';
 
 export type LinkPreviewPanelProps = {
-  url: string
-  onEdit: () => void
-  onClear: () => void
-}
+  url: string;
+  onEdit: () => void;
+  onClear: () => void;
+};
 
 export const LinkPreviewPanel = ({ onClear, onEdit, url }: LinkPreviewPanelProps) => {
   return (
@@ -27,5 +27,5 @@ export const LinkPreviewPanel = ({ onClear, onEdit, url }: LinkPreviewPanelProps
         </Toolbar.Button>
       </Tooltip>
     </Surface>
-  )
-}
+  );
+};

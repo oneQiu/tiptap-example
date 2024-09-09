@@ -1,23 +1,23 @@
-'use client'
+'use client';
 
-import { Editor as CoreEditor } from '@tiptap/core'
-import { memo } from 'react'
-import { TableOfContentsStorage } from '@tiptap-pro/extension-table-of-contents'
-import { cn } from '@/lib/utils'
-import { useEditorState } from '@tiptap/react'
-import deepEql from 'fast-deep-equal'
+import { Editor as CoreEditor } from '@tiptap/core';
+import { memo } from 'react';
+import { TableOfContentsStorage } from '@tiptap-pro/extension-table-of-contents';
+import { cn } from '@/lib/utils';
+import { useEditorState } from '@tiptap/react';
+import deepEql from 'fast-deep-equal';
 
 export type TableOfContentsProps = {
-  editor: CoreEditor
-  onItemClick?: () => void
-}
+  editor: CoreEditor;
+  onItemClick?: () => void;
+};
 
 export const TableOfContents = memo(({ editor, onItemClick }: TableOfContentsProps) => {
   const content = useEditorState({
     editor,
     selector: ctx => (ctx.editor.storage.tableOfContents as TableOfContentsStorage).content,
     equalityFn: deepEql,
-  })
+  });
 
   return (
     <>
@@ -45,7 +45,7 @@ export const TableOfContents = memo(({ editor, onItemClick }: TableOfContentsPro
         <div className="text-sm text-neutral-500">Start adding headlines to your document …</div>
       )}
     </>
-  )
-})
+  );
+});
 
-TableOfContents.displayName = 'TableOfContents'
+TableOfContents.displayName = 'TableOfContents';

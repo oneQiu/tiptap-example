@@ -1,13 +1,13 @@
 import { EditorContent } from '@tiptap/react';
 import React, { FC, useRef } from 'react';
-import { LinkMenu } from '@/components/menus';
+import { LinkMenu } from './menus';
 import { useBlockEditor } from '@/hooks/useBlockEditor';
 import '@/styles/index.css';
 import ImageBlockMenu from '@/extensions/ImageBlock/components/ImageBlockMenu';
 import { ColumnsMenu } from '@/extensions/MultiColumn/menus';
 import { TableColumnMenu, TableRowMenu } from '@/extensions/Table/menus';
-import { TextMenu } from '../menus/TextMenu';
-import { ContentItemMenu } from '@/components/menus';
+import { TextMenu } from './menus/TextMenu';
+import { ContentItemMenu } from './menus';
 import { Doc as YDoc } from 'yjs';
 import { TiptapCollabProvider } from '@hocuspocus/provider';
 

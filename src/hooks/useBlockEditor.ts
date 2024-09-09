@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useEditor, useEditorState } from '@tiptap/react';
 import deepEqual from 'fast-deep-equal';
-import type { AnyExtension, Editor } from '@tiptap/core';
+import type { AnyExtension } from '@tiptap/core';
 import Collaboration from '@tiptap/extension-collaboration';
 import CollaborationCursor from '@tiptap/extension-collaboration-cursor';
 import { TiptapCollabProvider, WebSocketStatus } from '@hocuspocus/provider';
@@ -11,12 +11,6 @@ import { userColors, userNames } from '@/lib/constants';
 import { randomElement } from '@/lib/utils';
 import type { EditorUser } from '@/components/BlockEditor/types';
 import { initialContent } from '@/lib/data/initialContent';
-
-declare global {
-  interface Window {
-    editor: Editor | null;
-  }
-}
 
 interface UseBlockEditorProps {
   collabConfig?: {
@@ -106,8 +100,6 @@ export const useBlockEditor = ({ collabConfig }: UseBlockEditorProps) => {
       setCollabState(event.status);
     });
   }, [provider]);
-
-  window.editor = editor;
 
   return { editor, users, collabState };
 };
